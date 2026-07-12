@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ilez Mankiev — Développeur Front-End Freelance</title>
+<meta name="description" content="Développeur front-end freelance — Svelte 5, React, Angular, TypeScript, ingénierie assistée par IA (MCP). Full remote, Lille, France.">
+<style>
+  :root{
+    --bg:#0b1220; --bg2:#0f1a2e; --card:#131f36; --card2:#182642;
+    --text:#e8eef8; --muted:#93a4c0; --accent:#4f8ff7; --accent2:#7bb0ff;
+    --green:#3ecf8e; --border:#22345a; --radius:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+  a{color:var(--accent2);text-decoration:none}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+  nav{position:sticky;top:0;z-index:50;background:rgba(11,18,32,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1000px;margin:0 auto}
+  .logo{font-weight:800;letter-spacing:.5px;font-size:1.05rem}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:22px;align-items:center;font-size:.92rem}
+  .nav-links a{color:var(--muted)} .nav-links a:hover{color:var(--text)}
+  .lang-toggle{display:flex;border:1px solid var(--border);border-radius:999px;overflow:hidden;font-size:.8rem}
+  .lang-toggle button{background:none;border:none;color:var(--muted);padding:5px 12px;cursor:pointer;font-weight:700}
+  .lang-toggle button.active{background:var(--accent);color:#fff}
+  header{padding:90px 0 70px;background:
+    radial-gradient(600px 300px at 80% 10%,rgba(79,143,247,.16),transparent),
+    radial-gradient(500px 260px at 10% 90%,rgba(62,207,142,.08),transparent)}
+  .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--green);color:var(--green);border-radius:999px;padding:5px 14px;font-size:.8rem;font-weight:600;margin-bottom:22px}
+  .badge::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-size:clamp(2.1rem,5vw,3.2rem);font-weight:800;line-height:1.15}
+  h1 .grad{background:linear-gradient(90deg,var(--accent),var(--accent2),var(--green));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .subtitle{font-size:1.15rem;color:var(--muted);margin:18px 0 30px;max-width:640px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:12px 24px;border-radius:10px;font-weight:700;font-size:.95rem;transition:transform .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-ghost{border:1px solid var(--border);color:var(--text)}
+  .hero-meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:34px;color:var(--muted);font-size:.9rem}
+  .hero-meta b{color:var(--text)}
+  section{padding:64px 0;border-top:1px solid var(--border)}
+  h2{font-size:1.6rem;font-weight:800;margin-bottom:8px}
+  .sec-sub{color:var(--muted);margin-bottom:34px;max-width:640px}
+  .kicker{color:var(--accent);font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+  .grid{display:grid;gap:18px}
+  .grid-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+  .card h3{font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+  .card p{color:var(--muted);font-size:.92rem}
+  .icon{width:34px;height:34px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;background:rgba(79,143,247,.14);font-size:1.05rem}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .tag{border:1px solid var(--border);background:var(--bg2);color:var(--accent2);border-radius:999px;padding:3px 11px;font-size:.76rem;font-weight:600}
+  .stars{color:#f4c150;font-size:.8rem;letter-spacing:2px}
+  .xp{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
+  .xp-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+  .xp-head h3{font-size:1.1rem}
+  .xp-head .period{color:var(--green);font-weight:700;font-size:.85rem}
+  .xp ul{list-style:none;display:grid;gap:10px}
+  .xp li{color:var(--muted);font-size:.93rem;padding-left:22px;position:relative}
+  .xp li::before{content:"▹";position:absolute;left:0;color:var(--accent)}
+  .xp li b{color:var(--text)}
+  .proj{border:1px dashed var(--border);background:var(--bg2);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column;gap:8px;min-height:150px;justify-content:center;text-align:center;color:var(--muted)}
+  .proj .soon{font-size:.75rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent)}
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .contact-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;text-align:center}
+  .contact-card .icon{margin:0 auto 10px}
+  .contact-card p{font-size:.92rem;color:var(--muted)}
+  .contact-card a{font-weight:700}
+  footer{border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:.82rem;text-align:center}
+  footer .siret{opacity:.7}
+  @media(max-width:640px){ .nav-links a.nav-item{display:none} header{padding:60px 0 50px} }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <div class="logo">ILEZ<span>.</span>MANKIEV</div>
+    <div class="nav-links">
+      <a href="#stack" class="nav-item" data-i18n="nav_stack">Expertise</a>
+      <a href="#services" class="nav-item" data-i18n="nav_services">Services</a>
+      <a href="#experience" class="nav-item" data-i18n="nav_xp">Expérience</a>
+      <a href="#contact" class="nav-item">Contact</a>
+      <div class="lang-toggle">
+        <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+        <button id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<header>
+  <div class="wrap">
+    <div class="badge" data-i18n="badge">Disponible — missions freelance · full remote</div>
+    <h1><span data-i18n="h1_a">Développeur Front-End</span><br><span class="grad" data-i18n="h1_b">Svelte · React · Angular</span></h1>
+    <p class="subtitle" data-i18n="subtitle">J'aide les équipes produit à livrer des interfaces web rapides, accessibles et maintenables — avec une stack TypeScript moderne et des workflows d'ingénierie dopés à l'IA.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:ilez.mankiev06@gmail.com" data-i18n="cta1">Me contacter</a>
+      <a class="btn btn-ghost" href="#services" data-i18n="cta2">Voir mes services</a>
+    </div>
+    <div class="hero-meta">
+      <div>📍 <span data-i18n="meta_loc">Lille, France — <b>full remote</b></span></div>
+      <div>💶 <span data-i18n="meta_rate">TJM <b>450 €</b> · ~60 €/h</span></div>
+      <div>🕒 <span data-i18n="meta_avail"><b>Soirs & week-ends</b> · missions courtes</span></div>
+    </div>
+  </div>
+</header>
+<section id="stack">
+  <div class="wrap">
+    <div class="kicker" data-i18n="k_stack">Expertise</div>
+    <h2 data-i18n="t_stack">Stack & compétences</h2>
+    <p class="sec-sub" data-i18n="s_stack">5 ans d'ingénierie front-end en environnement grand groupe : applications à grande échelle, exigences fortes d'accessibilité et de performance.</p>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3><span class="icon">⚡</span> <span data-i18n="c1_t">Frameworks front</span></h3>
+        <p><b>Svelte 5</b> <span class="stars">★★★★</span> · <b>Angular</b> <span class="stars">★★★</span> · <b>React</b> <span class="stars">★★</span></p>
+        <p style="margin-top:8px" data-i18n="c1_p">Architecture Vite, tests unitaires Vitest, TypeScript strict au quotidien.</p>
+        <div class="tags"><span class="tag">Svelte 5</span><span class="tag">React</span><span class="tag">Angular</span><span class="tag">TypeScript</span><span class="tag">Vite</span><span class="tag">Vitest</span></div>
+      </div>
+      <div class="card">
+        <h3><span class="icon">🎨</span> <span data-i18n="c2_t">Design systems & UI</span></h3>
+        <p data-i18n="c2_p">Contribution à un design system d'entreprise open source : composants, tokens, documentation Storybook, intégration de maquettes Figma, accessibilité.</p>
+        <div class="tags"><span class="tag">Design System</span><span class="tag">Storybook</span><span class="tag">Figma</span><span class="tag">A11y</span><span class="tag">CSS3</span></div>
+      </div>
+      <div class="card">
+        <h3><span class="icon">🤖</span> <span data-i18n="c3_t">Ingénierie assistée par IA</span></h3>
+        <p data-i18n="c3_p">Serveurs MCP (Model Context Protocol), GitHub Copilot CLI, automatisation de workflows via Google Apps Script — des outils IA qui font réellement gagner du temps.</p>
+        <div class="tags"><span class="tag">MCP</span><span class="tag">Copilot CLI</span><span class="tag">Apps Script</span><span class="tag">GenAI</span></div>
+      </div>
+      <div class="card">
+        <h3><span class="icon">🚀</span> <span data-i18n="c4_t">Qualité & CI/CD</span></h3>
+        <p data-i18n="c4_p">Intégration et déploiement continus, revues de code, documentation technique poussée, travail en équipe agile.</p>
+        <div class="tags"><span class="tag">GitHub Actions</span><span class="tag">Jenkins</span><span class="tag">Docker</span><span class="tag">Git</span><span class="tag">Jira</span></div>
+      </div>
+      <div class="card">
+        <h3><span class="icon">🌍</span> <span data-i18n="c5_t">Langues</span></h3>
+        <p data-i18n="c5_p">Français natif · Anglais B2 certifié (Lingueo) · Russe courant — à l'aise dans les équipes internationales.</p>
+        <div class="tags"><span class="tag">FR</span><span class="tag">EN — B2</span><span class="tag">RU</span></div>
+      </div>
+      <div class="card">
+        <h3><span class="icon">📋</span> <span data-i18n="c6_t">Statut</span></h3>
+        <p data-i18n="c6_p">Micro-entreprise déclarée en France — contractualisation et facturation simples et immédiates.</p>
+        <div class="tags"><span class="tag" data-i18n="c6_tag1">Micro-entreprise</span><span class="tag" data-i18n="c6_tag2">Facturation directe</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="services">
+  <div class="wrap">
+    <div class="kicker">Services</div>
+    <h2 data-i18n="t_serv">Ce que je peux faire pour vous</h2>
+    <p class="sec-sub" data-i18n="s_serv">Missions courtes à périmètre défini, renforts temps partiel, ou accompagnement ponctuel — en soirée, le week-end, ou sur des sprints dédiés.</p>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3><span class="icon">🧩</span> <span data-i18n="sv1_t">Développement front sur mesure</span></h3>
+        <p data-i18n="sv1_p">Nouvelle fonctionnalité, refonte d'interface, migration de framework (vers Svelte/React moderne), composant complexe, intégration d'API — livré testé et documenté.</p>
+      </div>
+      <div class="card">
+        <h3><span class="icon">📐</span> <span data-i18n="sv2_t">Design system & bibliothèque de composants</span></h3>
+        <p data-i18n="sv2_p">Mise en place ou consolidation de votre design system : composants réutilisables, tokens, Storybook, guidelines d'accessibilité — pour des équipes qui livrent plus vite.</p>
+      </div>
+      <div class="card">
+        <h3><span class="icon">✨</span> <span data-i18n="sv3_t">Intégration d'IA dans vos workflows</span></h3>
+        <p data-i18n="sv3_p">Audit et mise en place d'outillage IA pour votre équipe de dev : serveurs MCP, assistants de code, automatisations — un vrai gain de productivité mesurable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="experience">
+  <div class="wrap">
+    <div class="kicker" data-i18n="k_xp">Parcours</div>
+    <h2 data-i18n="t_xp">Expérience</h2>
+    <p class="sec-sub" data-i18n="s_xp">L'essentiel de mon parcours — le détail complet est disponible sur demande (CV).</p>
+    <div class="xp">
+      <div class="xp-head">
+        <h3 data-i18n="xp_title">Software Development Engineer — Grand groupe retail international (Lille)</h3>
+        <span class="period" data-i18n="xp_period">2021 → aujourd'hui</span>
+      </div>
+      <ul>
+        <li data-i18n="xp1">Développement d'applications web modernes en <b>TypeScript</b>, axé <b>Svelte 5</b> (Vite, Vitest).</li>
+        <li data-i18n="xp2">Maintenance et évolution d'applications basées sur <b>Angular</b> et <b>React</b>.</li>
+        <li data-i18n="xp3">Contribution et intégration d'un <b>design system</b> d'entreprise open source (Storybook, Figma).</li>
+        <li data-i18n="xp4">Intégration d'outils d'<b>ingénierie assistée par IA</b> : serveurs MCP, GitHub Copilot CLI.</li>
+        <li data-i18n="xp5">Automatisation de workflows internes (<b>Google Apps Script</b>) et CI/CD (<b>GitHub Actions, Jenkins</b>).</li>
+        <li data-i18n="xp6">Collaboration en équipe agile pluridisciplinaire, documentation technique poussée.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section id="projects">
+  <div class="wrap">
+    <div class="kicker" data-i18n="k_proj">Réalisations</div>
+    <h2 data-i18n="t_proj">Projets sélectionnés</h2>
+    <p class="sec-sub" data-i18n="s_proj">Mes premières missions freelance apparaîtront ici — les projets menés en entreprise restent confidentiels par respect de mes engagements.</p>
+    <div class="grid grid-3">
+      <div class="proj"><span class="soon" data-i18n="soon">Bientôt</span><span data-i18n="proj1">Votre projet ici ? Parlons-en.</span></div>
+      <div class="proj"><span class="soon" data-i18n="soon2">Bientôt</span><span data-i18n="proj2">Démo Svelte 5 en préparation</span></div>
+      <div class="proj"><span class="soon" data-i18n="soon3">Bientôt</span><span data-i18n="proj3">Étude de cas à venir</span></div>
+    </div>
+  </div>
+</section>
+<section id="contact">
+  <div class="wrap">
+    <div class="kicker">Contact</div>
+    <h2 data-i18n="t_contact">Travaillons ensemble</h2>
+    <p class="sec-sub" data-i18n="s_contact">Réponse sous 24 h en semaine (soirée) et le week-end. Décrivez votre besoin en quelques lignes, je reviens vers vous avec une proposition claire.</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="icon">✉️</span>
+        <p data-i18n="ct_mail">Email</p>
+        <a href="mailto:ilez.mankiev06@gmail.com">ilez.mankiev06@gmail.com</a>
+      </div>
+      <div class="contact-card">
+        <span class="icon">📱</span>
+        <p data-i18n="ct_tel">Téléphone</p>
+        <a href="tel:+33759716040">+33 7 59 71 60 40</a>
+      </div>
+      <div class="contact-card">
+        <span class="icon">💼</span>
+        <p data-i18n="ct_malt">Plateformes</p>
+        <a href="#" data-i18n="ct_malt_l">Malt / Comet — liens à venir</a>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <p>© 2026 Ilez Mankiev — <span data-i18n="f_1">Développeur front-end freelance, Lille</span></p>
+    <p class="siret" data-i18n="f_2">Micro-entreprise — SIRET : 878 780 915 00020</p>
+  </div>
+</footer>
+<script>
+const I18N = {
+  fr: {},
+  en: {
+    nav_stack:"Expertise", nav_services:"Services", nav_xp:"Experience",
+    badge:"Available — freelance work · fully remote",
+    h1_a:"Front-End Developer", h1_b:"Svelte · React · Angular",
+    subtitle:"I help product teams ship fast, accessible and maintainable web interfaces — with a modern TypeScript stack and AI-powered engineering workflows.",
+    cta1:"Get in touch", cta2:"View services",
+    meta_loc:"Lille, France — <b>fully remote</b>",
+    meta_rate:"Day rate <b>€450</b> · ~€60/h",
+    meta_avail:"<b>Evenings & weekends (CET)</b> · short projects",
+    k_stack:"Expertise", t_stack:"Stack & skills",
+    s_stack:"5 years of front-end engineering in a large-enterprise environment: applications at scale, strong accessibility and performance requirements.",
+    c1_t:"Front-end frameworks", c1_p:"Vite architecture, Vitest unit testing, strict TypeScript daily.",
+    c2_t:"Design systems & UI", c2_p:"Contribution to an open-source corporate design system: components, tokens, Storybook docs, Figma integration, accessibility.",
+    c3_t:"AI-assisted engineering", c3_p:"MCP (Model Context Protocol) servers, GitHub Copilot CLI, workflow automation with Google Apps Script — AI tooling that genuinely saves time.",
+    c4_t:"Quality & CI/CD", c4_p:"Continuous integration and deployment, code reviews, thorough technical documentation, agile teamwork.",
+    c5_t:"Languages", c5_p:"Native French · Certified B2 English (Lingueo) · Fluent Russian — comfortable in international teams.",
+    c6_t:"Status", c6_p:"Registered French micro-entreprise — simple, immediate contracting and invoicing.",
+    c6_tag1:"Micro-entreprise", c6_tag2:"Direct invoicing",
+    t_serv:"What I can do for you",
+    s_serv:"Short fixed-scope projects, part-time reinforcement, or one-off support — evenings, weekends, or dedicated sprints.",
+    sv1_t:"Custom front-end development", sv1_p:"New feature, UI overhaul, framework migration (to modern Svelte/React), complex component, API integration — delivered tested and documented.",
+    sv2_t:"Design system & component library", sv2_p:"Set up or consolidate your design system: reusable components, tokens, Storybook, accessibility guidelines — so your teams ship faster.",
+    sv3_t:"AI integration in your workflows", sv3_p:"Audit and set up AI tooling for your dev team: MCP servers, code assistants, automations — a real, measurable productivity gain.",
+    k_xp:"Background", t_xp:"Experience",
+    s_xp:"The essentials of my background — full details available on request (CV).",
+    xp_title:"Software Development Engineer — Major international retail group (Lille, France)",
+    xp_period:"2021 → today",
+    xp1:"Building modern web applications in <b>TypeScript</b>, focused on <b>Svelte 5</b> (Vite, Vitest).",
+    xp2:"Maintaining and evolving <b>Angular</b> and <b>React</b> applications.",
+    xp3:"Contributing to an open-source corporate <b>design system</b> (Storybook, Figma).",
+    xp4:"Integrating <b>AI-assisted engineering</b> tools: MCP servers, GitHub Copilot CLI.",
+    xp5:"Automating internal workflows (<b>Google Apps Script</b>) and CI/CD (<b>GitHub Actions, Jenkins</b>).",
+    xp6:"Agile cross-functional teamwork, thorough technical documentation.",
+    k_proj:"Work", t_proj:"Selected projects",
+    s_proj:"My first freelance projects will appear here — work done in-house remains confidential out of respect for my commitments.",
+    soon:"Coming soon", soon2:"Coming soon", soon3:"Coming soon",
+    proj1:"Your project here? Let's talk.", proj2:"Svelte 5 demo in progress", proj3:"Case study coming",
+    t_contact:"Let's work together",
+    s_contact:"Reply within 24h on weekday evenings and weekends. Describe your need in a few lines — I'll come back with a clear proposal.",
+    ct_mail:"Email", ct_tel:"Phone", ct_malt:"Platforms", ct_malt_l:"Malt / Comet — links coming",
+    f_1:"Freelance front-end developer, Lille, France",
+    f_2:"French micro-entreprise — SIRET: 878 780 915 00020"
+  }
+};
+document.querySelectorAll("[data-i18n]").forEach(el=>{
+  I18N.fr[el.getAttribute("data-i18n")] = el.innerHTML;
+});
+function setLang(lang){
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key = el.getAttribute("data-i18n");
+    if(I18N[lang][key] !== undefined) el.innerHTML = I18N[lang][key];
+  });
+  document.getElementById("btn-fr").classList.toggle("active", lang==="fr");
+  document.getElementById("btn-en").classList.toggle("active", lang==="en");
+  document.title = lang==="fr" ? "Ilez Mankiev — Développeur Front-End Freelance" : "Ilez Mankiev — Freelance Front-End Developer";
+}
+</script>
+</body>
+</html>
